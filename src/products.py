@@ -11,11 +11,11 @@ class Product:
         self.quantity = quantity
 
     @classmethod
-    def new_product(cls,product):
-        name = product['name']
-        description = product['description']
-        price = product['price']
-        quantity = product['quantity']
+    def new_product(cls, product):
+        name = product["name"]
+        description = product["description"]
+        price = product["price"]
+        quantity = product["quantity"]
         return cls(name, description, price, quantity)
 
     @property
@@ -23,8 +23,12 @@ class Product:
         return self.__price
 
     @price.setter
-    def price(self,price):
-        self.__price = price if price > 0 else print("Цена не должна быть нулевая или отрицательная")
+    def price(self, price):
+        self.__price = (
+            price
+            if price > 0
+            else print("Цена не должна быть нулевая или отрицательная")
+        )
 
 
 # if __name__ == "__main__":
@@ -37,7 +41,7 @@ class Product:
 #     print(product1.name)
 #     print(product1.description)
 #     print(product1.price)
-#     product6 = Product.new_product("Жвачка", "Кондитерские изделия", 20.0, 40)
+#     product6 = Product.new_product("Жвачка", "Кондитер", 20.0, 40)
 #     print(product6.name)
 #     print(product6.description)
 #     print(product6.price)

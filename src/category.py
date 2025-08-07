@@ -3,31 +3,32 @@ from src.products import Product
 
 class Category:
     products: list
-    category_count = 0 # Общее количество категорий
-    product_count = 0 # Общее количество уникальных товаров, счетчик продуктов
+    category_count = 0  # Общее количество категорий
+    product_count = 0  # Общее количество уникальных товаров, счетчик продуктов
 
-    def __init__(self, name:str, description:str, products = None):
+    def __init__(self, name: str, description: str, products=None):
         self.name = name
         self.description = description
-        self.__products = products if products else [] # products or [] # Приватный атрибут списка товаров
+        self.__products = (
+            products if products else []
+        )  # products or [] # Приватный атрибут списка товаров
         # Обновляем атрибуты класса
         Category.category_count += 1
         Category.product_count += len(products) if products else 0
 
-
-    def add_product(self, product:Product):
+    def add_product(self, product: Product):
         """Добавляет товар в приватный список продуктов категории."""
         self.__products.append(product)
-        Category.product_count += 1 # Увеличиваем счетчик товаров
-
+        Category.product_count += 1  # Увеличиваем счетчик товаров
 
     """геттер который возвращает значения"""
     """ Декоратор property позволяет нам обращаться к методу как к атрибуту класса """
+
     @property
     def products(self):
-        products_str = ''
+        products_str = ""
         for product in self.__products:
-            products_str += f'{product.name}, {product.price} руб. Остаток: {product.quantity} шт. \n'
+            products_str += f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт. \n"
         return products_str
 
     """ используем метод add+product или сеттер"""
@@ -37,10 +38,6 @@ class Category:
     #     """Добавляет товар в приватный список продуктов категории."""
     #     self.__products.append(product)
     #     Category.product_count += 1 # Увеличиваем счетчик товаров
-
-
-
-
 
 
 # if __name__ == "__main__":
