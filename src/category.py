@@ -1,33 +1,72 @@
-from optparse import Option
-
 from src.products import Product
 
 
 class Category:
-    name: str
-    description: str
     products: list
-    category_count = 0
-    product_count = 0
+    category_count = 0 # Общее количество категорий
+    product_count = 0 # Общее количество уникальных товаров, счетчик продуктов
 
-    def __init__(self, name:str, description:str, products:Option[list[Product]]=None):
+    def __init__(self, name:str, description:str, products = None):
         self.name = name
         self.description = description
-        self.products = products if products else [] # products or []
+        self.__products = products if products else [] # products or [] # Приватный атрибут списка товаров
+        # Обновляем атрибуты класса
         Category.category_count += 1
         Category.product_count += len(products) if products else 0
 
 
-if __name__ == "__main__":
+    def add_product(self, product:Product):
+        """Добавляет товар в приватный список продуктов категории."""
+        self.__products.append(product)
+        Category.product_count += 1 # Увеличиваем счетчик товаров
 
-    category1 = Category(
-        "Кондитерские изделия",
-        "Сладости и выпечка",
-        ["Конфеты", "Булочки", "Выпечка"]
-    )
-    category2 = Category(
-        "Мясной отдел", "мясо, колбасы", ["Фарш", "Колбаса", "Мясо", "Сосиски"]
-    )
-    print(Category.category_count)
-    print(category2.product_count)
-    print(Category.product_count)
+
+    """геттер который возвращает значения"""
+    """ Декоратор property позволяет нам обращаться к методу как к атрибуту класса """
+    @property
+    def products(self):
+        products_str = ''
+        for product in self.__products:
+            products_str += f'{product.name}, {product.price} руб. Остаток: {product.quantity} шт. \n'
+        return products_str
+
+    """ используем метод add+product или сеттер"""
+
+    # @products.setter
+    # def products(self, product:Product):
+    #     """Добавляет товар в приватный список продуктов категории."""
+    #     self.__products.append(product)
+    #     Category.product_count += 1 # Увеличиваем счетчик товаров
+
+
+
+
+
+
+# if __name__ == "__main__":
+#     product1 = Product("Мороженное", "Молочные изделия", 55.5, 10)
+#     product2 = Product("Молоко", "Молочные изделия", 70.0, 20)
+#     product3 = Product("Конфеты", "Кондитерские изделия", 140.0, 100)
+#     product4 = Product("Фарш", "Полуфабрикаты", 1500.0, 50)
+#     product5 = Product("Сосиски", "Полуфабрикаты", 100.0, 70)
+#
+#     category1 = Category(
+#         "Кондитерские изделия",
+#         "Сладости и выпечка",
+#         [product1, product2, product3]
+#     )
+#     category2 = Category(
+#         "Мясной отдел", "мясо, колбасы", [product4, product5]
+#     )
+#     print(Category.category_count)
+#     print(category2.products)
+#     print(Category.product_count)
+#
+#     product6 = Product("Сосиска", "Полуфабрикаты", 100.0, 70)
+#     # category2.products = product6 # при использовании сеттера
+#     category2.add_product(product6)
+#     print(category2.products)
+#     print(Category.product_count)
+#
+#
+#
