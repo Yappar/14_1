@@ -7,6 +7,9 @@ def test_product_init(product):
     product.price = -100
     assert product.price is None
 
+    product.price = 0
+    assert product.price is None
+
     product8 = product.new_product(
         {
             "name": "Samsung Galaxy S23 Ultra",
