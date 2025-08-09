@@ -1,7 +1,7 @@
 def test_product_init(product):
     assert product.name == "Мороженное"
     assert product.description == "Молочные изделия"
-    assert product.price == 55.5
+    assert product.price == 55
     assert product.quantity == 10
 
     product.price = -100
@@ -19,3 +19,10 @@ def test_product_init(product):
         }
     )
     assert product8.name == "Samsung Galaxy S23 Ultra"
+
+    assert str(product) == "Мороженное, None руб, Остаток: 10 шт."
+
+
+def test_product_price_sum(product, product2):
+    result = product + product2
+    assert result == 950

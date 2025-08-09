@@ -16,10 +16,16 @@ class Category:
         Category.category_count += 1
         Category.product_count += len(products) if products else 0
 
+    def __str__(self):
+        return f"{self.name}, количество продуктов:{sum(product.quantity for product in self.__products)} шт."
+
     def add_product(self, product: Product):
         """Добавляет товар в приватный список продуктов категории."""
-        self.__products.append(product) if isinstance(product, Product) else print(
-            "Не является атрибутом класса Product")
+        (
+            self.__products.append(product)
+            if isinstance(product, Product)
+            else print("Не является атрибутом класса Product")
+        )
         Category.product_count += 1  # Увеличиваем счетчик товаров
 
     """геттер который возвращает значения"""
@@ -29,7 +35,7 @@ class Category:
     def products(self):
         products_str = ""
         for product in self.__products:
-            products_str += f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт. \n"
+            products_str += f"{str(product)} \n"
         return products_str
 
     """ используем метод add+product или сеттер"""

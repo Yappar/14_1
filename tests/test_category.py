@@ -13,7 +13,7 @@ def test_category_init(first_category, second_category):
 
 def test_product_property(first_category):
     assert first_category.products == (
-        "Мороженное, 55.5 руб. Остаток: 10 шт. \n"
-        "Молоко, 70.0 руб. Остаток: 20 шт. \n"
-        "Конфеты, 140.0 руб. Остаток: 100 шт. \n"
+        "Мороженное, 55.5 руб, Остаток: 10 шт. \n"
+        "Молоко, 70.0 руб, Остаток: 20 шт. \n"
+        "Конфеты, 140.0 руб, Остаток: 100 шт. \n"
     )
