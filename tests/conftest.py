@@ -6,7 +6,12 @@ from src.category import Category
 
 @pytest.fixture
 def product():
-    return Product("Мороженное", "Молочные изделия", 55.5, 10)
+    return Product("Мороженное", "Молочные изделия", 55, 10)
+
+
+@pytest.fixture
+def product2():
+    return Product("Сникерс", "Кондитерские изделия", 80, 5)
 
 
 @pytest.fixture

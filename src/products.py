@@ -8,7 +8,16 @@ class Product:
         self.name = name
         self.description = description
         self.__price = price
-        self.quantity = quantity
+        self.quantity = quantity  # количество
+        self.full_price = price * quantity
+
+    def __str__(self):
+        return f"{self.name}, {self.price} руб, Остаток: {self.quantity} шт."
+
+    """" Название продукта, 80 руб. Остаток: 15 шт."""
+
+    def __add__(self, other):
+        return self.full_price + other.full_price
 
     @classmethod
     def new_product(cls, product):
@@ -24,7 +33,11 @@ class Product:
 
     @price.setter
     def price(self, price):
-        self.__price = (price if price > 0 else print("Цена не должна быть нулевая или отрицательная"))
+        self.__price = (
+            price
+            if price > 0
+            else print("Цена не должна быть нулевая или отрицательная")
+        )
 
 
 # if __name__ == "__main__":
