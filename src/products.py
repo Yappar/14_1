@@ -17,7 +17,9 @@ class Product:
     """" Название продукта, 80 руб. Остаток: 15 шт."""
 
     def __add__(self, other):
-        return self.full_price + other.full_price
+        if type(other) is Product:
+            return self.full_price + other.full_price
+        raise TypeError
 
     @classmethod
     def new_product(cls, product):

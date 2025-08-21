@@ -23,8 +23,6 @@ def test_product_init(product):
     assert product8.name == "Samsung Galaxy S23 Ultra"
 
 
-
-
 def test_product_price_sum(product, product2):
     result = product + product2
     assert result == 950
