@@ -2,7 +2,6 @@ from src.BaseProduct import BaseProduct
 from src.print_mixin import PrintMixin
 
 
-
 class Product(BaseProduct, PrintMixin):
     name: str
     description: str
