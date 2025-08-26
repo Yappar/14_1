@@ -86,3 +86,11 @@ def Product_LawnGrass2():
         "5 дней",
         "Темно-зеленый",
     )
+
+
+@pytest.fixture
+def category_without_product():
+    return Category(
+        name="Вино",
+        description="Алкоголбные напитки",
+    )
