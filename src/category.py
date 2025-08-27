@@ -1,4 +1,5 @@
 from src.products import Product
+from src.exceptions import ZeroQuantityProduct
 
 
 class Category:
@@ -22,8 +23,19 @@ class Category:
     def add_product(self, product: Product):
         """Добавляет товар в приватный список продуктов категории."""
         if isinstance(product, Product):
-            self.__products.append(product)
-            Category.product_count += 1  # Увеличиваем счетчик товаров
+            try:
+                if product.quantity == 0:
+                    raise ZeroQuantityProduct(
+                        "Нельзя задать задачу с нулевым количеством"
+                    )
+            except ZeroQuantityProduct as e:
+                print(str(e))
+            else:
+                self.__products.append(product)
+                Category.product_count += 1  # Увеличиваем счетчик товаров
+                print("Задача добавлена успешно")
+            finally:
+                print("Обработка добавления задачи завершена")
         else:
             raise TypeError
 
@@ -37,6 +49,14 @@ class Category:
             products_str += f"{str(product)} \n"
         return products_str
 
+    def middle_price(self):
+        try:
+            return sum(product.price for product in self.__products) / len(
+                self.__products
+            )
+        except ZeroDivisionError:
+            return 0
+
     """ используем метод add+product или сеттер"""
 
     # @products.setter
@@ -46,30 +66,22 @@ class Category:
     #     Category.product_count += 1 # Увеличиваем счетчик товаров
 
 
-# if __name__ == "__main__":
-#     product1 = Product("Мороженное", "Молочные изделия", 55.5, 10)
-#     product2 = Product("Молоко", "Молочные изделия", 70.0, 20)
-#     product3 = Product("Конфеты", "Кондитерские изделия", 140.0, 100)
-#     product4 = Product("Фарш", "Полуфабрикаты", 1500.0, 50)
-#     product5 = Product("Сосиски", "Полуфабрикаты", 100.0, 70)
-#
-#     category1 = Category(
-#         "Кондитерские изделия",
-#         "Сладости и выпечка",
-#         [product1, product2, product3]
-#     )
-#     category2 = Category(
-#         "Мясной отдел", "мясо, колбасы", [product4, product5]
-#     )
-#     print(Category.category_count)
-#     print(category2.products)
-#     print(Category.product_count)
-#
-#     product6 = Product("Сосиска", "Полуфабрикаты", 100.0, 70)
-#     # category2.products = product6 # при использовании сеттера
-#     category2.add_product(product6)
-#     print(category2.products)
-#     print(Category.product_count)
-#
-#
-#
+if __name__ == "__main__":
+    product1 = Product("Мороженное", "Молочные изделия", 55.5, 10)
+    product2 = Product("Молоко", "Молочные изделия", 70.0, 20)
+    product3 = Product("Конфеты", "Кондитерские изделия", 140.0, 100)
+    product4 = Product("Фарш", "Полуфабрикаты", 1500.0, 50)
+    product5 = Product("Сосиски", "Полуфабрикаты", 100.0, 5)
+
+    category1 = Category(
+        "Кондитерские изделия", "Сладости и выпечка", [product1, product2, product3]
+    )
+    category2 = Category("Мясной отдел", "мясо, колбасы", [product4, product5])
+    print(Category.category_count)
+    print(category2.products)
+    print(Category.product_count)
+
+    product6 = Product("Сосиска", "Полуфабрикаты", 100.0, 550)
+    # category2.products = product6 # при использовании сеттера
+    category2.add_product(product6)
+    print(category2.products)
